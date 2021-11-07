@@ -4,9 +4,9 @@
 
 1. [Introduction](introduction/whoami.md)
 2. Simple APIs with `net/http`
-	* Interfaces
-	* `http.handler`
-	* Requests and responses
+	* [The `net/http` package](nethttp/package.md)
+	* [Requests](nethttp/requests.md)
+	* [Response](nethttp/response.md)
 3. HTTP methods and the data
 	* HTTP and CRUD
 	* Special handler with interfaces

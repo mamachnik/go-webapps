@@ -1,6 +1,6 @@
 *Once Web Application with Everything in Go*
 
-## Who Am I
+## Who am I
 
 * [Frank Müller](https://themue.dev)
 * Oldenburg / Germany

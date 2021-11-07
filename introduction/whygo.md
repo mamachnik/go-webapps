@@ -26,7 +26,7 @@
 
 > *It’s better to have a permanent income than to be fascinating.*
 >
-> Oscar Wilde
+> -- Oscar Wilde
 
 ---
 
