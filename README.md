@@ -7,6 +7,7 @@
 	* [The `net/http` package](nethttp/package.md)
 	* [Requests](nethttp/requests.md)
 	* [Response](nethttp/response.md)
+	* [The building blocks together](nethttp/buildingblocks.md)
 3. HTTP methods and the data
 	* HTTP and CRUD
 	* Special handler with interfaces

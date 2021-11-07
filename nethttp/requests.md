@@ -2,7 +2,7 @@
 
 ## Web requests
 
-### Request
+### http.Request
 
 * The type `http.Request` represents an HTTP request received by a server
 * It also can be sent to a server with the `http.Client`

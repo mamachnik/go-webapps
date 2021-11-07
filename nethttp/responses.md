@@ -2,7 +2,7 @@
 
 ## Web responses
 
-### ResponseWriter
+### http.ResponseWriter
 
 * The type `http.ResponseWriter` is an interface type that represents the response being sent back to the client
 * It defines methods to access and change the HTTP response status code and headers
@@ -22,4 +22,4 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 ---
 
-[   PREV   ](requests.md) | [   TOP   ](../README.md)
+[   PREV   ](requests.md) | [   TOP   ](../README.md) | [   NEXT   ](buildingblocks.md)
