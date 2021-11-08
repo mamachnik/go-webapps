@@ -9,8 +9,8 @@
 	* [Response](nethttp/response.md)
 	* [The building blocks together](nethttp/buildingblocks.md)
 3. HTTP methods and the data
-	* HTTP and CRUD
-	* Special handler with interfaces
+	* [Handling HTTP methods](methods/interfaces.md)
+	* [RESTful APIs and CRUD](methods/crud.md)
 	* Data and encode/json
 4. Multiplexing
 	* Multiple paths, multiple handlers
