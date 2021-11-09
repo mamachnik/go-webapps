@@ -19,6 +19,7 @@ case http.MethodPost:
     h.handlePost(w, r)
 default:
     // Handle other methods or return error.
+    ...
 }
 ```
 
