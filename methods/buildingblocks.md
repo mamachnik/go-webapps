@@ -105,8 +105,6 @@ func main() {
 }
 ```
 
-```
-
 ---
 
 [   PREV   ](json.md) | [   TOP   ](../README.md)
