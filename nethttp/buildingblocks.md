@@ -40,9 +40,9 @@ func newCacheHandler() *CacheHandler {
 func (h *CacheHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     // Map HTTP methods to individual methods.
     switch r.Method { 
-    case http.HandleGet:
+    case http.MethodGet:
         h.handleGet(w, r)
-    case http.HandlePost:
+    case http.MethodPost:
         h.handlePost(w, r)
     default:
         w.WriteHeader(http.StatusMethodNotAllowed)
