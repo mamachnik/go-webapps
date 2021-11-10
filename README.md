@@ -21,5 +21,5 @@
 	* [The building blocks together](multiplexing/buildingblocks.md)
 5. Other useful wrappers
 	* [Logging](wrappers/logging.md)
-	* JWT for authentication and authorization
+	* [JWT for authentication and authorization](wrappers/jwt.md)s
 7. Summary

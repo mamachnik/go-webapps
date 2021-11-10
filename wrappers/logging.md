@@ -67,7 +67,7 @@ func main() {
 
     // ...
 
-    mux.Handle("/api/v1/", apimux)
+    mux.Handle("/api/v1/", apilogger)
 
     // ...
 

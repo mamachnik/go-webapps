@@ -21,6 +21,7 @@ import (
 )
 
 const (
+    HeaderAccept      = "Accept"
     HeaderContentType = "Content-Type"
 
     ContentTypeJSON = "application/json"
