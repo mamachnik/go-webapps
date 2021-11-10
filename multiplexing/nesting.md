@@ -12,10 +12,12 @@
 ### Extend the `httpx` package
 
 ```go
+// file: nesting.go
+
 package httpx
 
 import (
-	"net/http"
+    "net/http"
     "strings"
     "sync"
 )
@@ -25,13 +27,13 @@ import (
 type NestedMux struct {
     mu        sync.RWMutex
     prefix    string
-	resources map[string]http.Handler
+    resources map[string]http.Handler
     handler   http.Handler
 }
 
 // NewNestedMux creates an empty nested multiplexer.
 func NewNestedMux(prefix string) *NestedMux {
-	return &NestedMux{
+    return &NestedMux{
         prefix:    prefix,
         resources: make(map[string]*NestedMux),
     }
@@ -65,8 +67,8 @@ func (mux *NestedMux) Handle(name string, h http.Handler) {
 func (mux *NestedMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     ids := ParseResourceIDs(r.URL.Path, mux.prefix)
 
-	h := mux.retrieveHandler(ids)
-	h.ServeHTTP(w, r)
+    h := mux.retrieveHandler(ids)
+    h.ServeHTTP(w, r)
 }
 
 // retrieveHandler retrieves the handler based on the resource IDs.

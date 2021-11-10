@@ -20,6 +20,6 @@
 	* [Nesting of handlers](multiplexing/nesting.md)
 	* [The building blocks together](multiplexing/buildingblocks.md)
 5. Other useful wrappers
-	* Logging
+	* [Logging](wrappers/logging.md)
 	* JWT for authentication and authorization
 7. Summary
