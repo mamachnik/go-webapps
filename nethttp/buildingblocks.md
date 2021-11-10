@@ -22,7 +22,7 @@ import (
 // via a map of string to []byte. The sync.RWMutex is used to ensure that
 // the cache is thread-safe.
 type CacheHandler struct {
-    mux   sync.RWMutex
+    mu    sync.RWMutex
     cache map[string][]byte
 }
 
@@ -53,8 +53,8 @@ func (h *CacheHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 // its data is returned. Otherwise, the response is set to 404. Only
 // read lock is needed.
 func (h *CacheHandler) handleGet(w http.ResponseWriter, r *http.Request) {
-    h.mux.RLock()
-    defer h.mux.RUnlock()
+    h.mu.RLock()
+    defer h.mu.RUnlock()
 
     // Check if path is known.
     data, ok := h.cache[r.URL.Path]
@@ -68,8 +68,8 @@ func (h *CacheHandler) handleGet(w http.ResponseWriter, r *http.Request) {
 
 // handlePost handles POST requests. It does not matter if the path is known.
 func (h *CacheHandler) handlePost(w http.ResponseWriter, r *http.Request) {
-    h.mux.Lock()
-    defer h.mux.Unlock()
+    h.mu.Lock()
+    defer h.mu.Unlock()
 
     // Simply write/update the variable.
     h.cache[r.URL.Path] = r.Body

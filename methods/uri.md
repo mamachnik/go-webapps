@@ -26,8 +26,8 @@ type ResourceID struct {
 // ResourceIDs is a type that can be used to identify multiple resources.
 type ResourceIDs []ResourceID
 
-// NewResourceID creates a new ResourceID from a URI path.
-func NewResourceIDs(r http.Request, prefix string) ResourceIDs {
+// ParseResourceIDs parses a new ResourceID from a URI path.
+func ParseResourceIDs(r http.Request, prefix string) ResourceIDs {
     trimmed := strings.TrimPrefix(r.URL.Path, prefix)
     parts := strings.Split(trimmed, "/")
     if len(parts) == 0 {

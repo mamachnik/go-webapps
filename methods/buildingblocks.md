@@ -31,7 +31,7 @@ type JSONDoc struct {
 // raw content. The sync.RWMutex is used to ensure that the cache is
 // thread-safe.
 type JSONCacheServer struct {
-    mux   sync.RWMutex
+    mu    sync.RWMutex
     cache map[string]JSONDoc
 }
 
@@ -45,15 +45,15 @@ func JSONnewCacheServer() {
 
 // ServeHTTPGet retrieves a JSO document out of cache.
 func (s *JSONCacheServer) ServeHTTPGet(w http.ResponseWriter, r *http.Request) {
-    s.mux.RLock()
-    defer s.mux.RUnlock()
+    s.mu.RLock()
+    defer s.mu.RUnlock()
 
-    ids := httpx.NewResourceIDs(r, "/api")
+    ids := httpx.ParseResourceIDs(r, "/api/v1")
     if ids == nil {
         http.Error(w, "resource and ID are missing", http.StatusInvalidRequest)
         return
     }
-    // Missing: Check of the resource name.
+    // Missing: Check of the resource name!
     id := ids[0].ID
     doc, ok := s.cache[id]
     if !ok {
@@ -68,15 +68,15 @@ func (s *JSONCacheServer) ServeHTTPGet(w http.ResponseWriter, r *http.Request) {
 
 // ServeHTTPPost adds a JSON document to the cache.
 func (s *JSONnewCacheServer) ServeHTTPPost(w http.ResponseWriter, r *http.Request) {
-    s.mux.Lock()
-    defer s.mux.Unlock()
+    s.mu.Lock()
+    defer s.mu.Unlock()
 
-    ids := httpx.NewResourceIDs(r, "/api")
+    ids := httpx.ParseResourceIDs(r, "/api/v1")
     if ids == nil {
         http.Error(w, "resource is missing", http.StatusInvalidRequest)
         return
     }
-    // Missing: Check of the resource name.
+    // Missing: Check of the resource name!
     var doc JSONDoc
     err := httpx.ReadBody(r, &doc)
     if err != nil {

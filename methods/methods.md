@@ -65,10 +65,6 @@ type DeleteHandler interface {
     ServeHTTPDelete(w http.ResponseWriter, r *http.Request)
 }
 
-type DefaultHandler interface {
-    ServeHTTPDefault(w http.ResponseWriter, r *http.Request)
-}
-
 // ...
 
 // MethodHandler wraps a http.Handler implementing also individual httpx handler
@@ -106,12 +102,9 @@ func (h *MethodHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
         }
     // ...
     default:
-        if h, ok := h.h.(DefaultHandler); ok {
-            h.ServeHTTPDefault(w, r)
-            return
-        }
+        // Fall back to default handler method.
+        h.h.ServeHTTP(w, r)
     }
-    http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
 }
 ```
 
@@ -132,7 +125,7 @@ import (
 // via a map of string to []byte. The sync.RWMutex is used to ensure that
 // the cache is thread-safe.
 type CacheHandler struct {
-    mux   sync.RWMutex
+    mu    sync.RWMutex
     cache map[string][]byte
 }
 
@@ -148,10 +141,10 @@ func newCacheHandler() {
 // its data is returned. Otherwise, the response is set to 404. Only
 // read lock is needed.
 func (h *CacheHandler) ServeHTTPGet(w http.ResponseWriter, r *http.Request) {
-    h.mux.RLock()
-    defer h.mux.RUnlock()
+    h.mu.RLock()
+    defer h.mu.RUnlock()
 
-        // Check if path is known.
+    // Check if path is known.
     data, ok := h.cache[r.URL.Path]
     if !ok {
         w.WriteHeader(http.StatusNotFound)

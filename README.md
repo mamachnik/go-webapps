@@ -17,12 +17,9 @@
 	* [The building blocks together](methods/buildingblocks.md)
 4. Multiplexing
 	* [Distribute paths to handlers](multiplexing/multiplexing.md)
-	* Deep paths and IDs
-5. Interfaces for authentication, authorisation and logs
-	* Nesting handlers
-	* JWT for individual rights
-	* Sessions
-6. Other aspects
-	* Templates for HTML and text
-	* gRPC
+	* [Nesting of handlers](multiplexing/nesting.md)
+	* [The building blocks together](multiplexing/buildingblocks.md)
+5. Other useful wrappers
+	* Logging
+	* JWT for authentication and authorization
 7. Summary
