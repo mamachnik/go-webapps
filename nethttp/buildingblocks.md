@@ -28,7 +28,7 @@ type CacheHandler struct {
 
 // newCacheHandler creates the cache server. It's simply needed to create
 // the map of string to []byte.
-func newCacheHandler() {
+func newCacheHandler() *CacheHandler {
     return &CacheHandler{
         cache: make(map[string][]byte),
     }
