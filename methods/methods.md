@@ -71,38 +71,49 @@ type DeleteHandler interface {
 // interface. It distributes the requests to the handler methods based on a type
 // switch In case of no matching method a http.ErrMethodNotAllowed is returned.
 type MethodHandler struct {
-    h http.Handler
+    handler http.Handler
 }
 
 func NewMethodHandler(h http.Handler) *MethodHandler {
-    return &MethodHandler{h: h}
+    return &MethodHandler{
+        handler: h,
+    }
 }
 
+// ServeHTTP implements the http.Handler interface.
 func (h *MethodHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-    switch r.Method {
-    case http.MethodGet:
-        if h, ok := h.h.(GetHandler); ok {
-            h.ServeHTTPGet(w, r)
-            return
-        }
-    case http.MethodPost:
-        if h, ok := h.h.(PostHandler); ok {
-            h.ServeHTTPPost(w, r)
-            return
-        }
-    case http.MethodPut:
-        if h, ok := h.h.(PutHandler); ok {
-            h.ServeHTTPPut(w, r)
-            return
-        }
-    case http.MethodDelete:
-        if h, ok := h.h.(DeleteHandler); ok {
-            h.ServeHTTPDelete(w, r)
-            return
-        }
+	notAllowed := func() {
+		errtxt := http.StatusText(http.StatusMethodNotAllowed) + ": " + r.Method
+		http.Error(w, errtxt, http.StatusMethodNotAllowed)
+	}
+	switch r.Method {
+	case http.MethodGet:
+		if hh, ok := h.handler.(GetHandler); ok {
+			hh.ServeHTTPGet(w, r)
+			return
+		}
+		notAllowed()
+	case http.MethodPost:
+		if hh, ok := h.handler.(PostHandler); ok {
+			hh.ServeHTTPPost(w, r)
+			return
+		}
+		notAllowed()
+	case http.MethodPut:
+		if hh, ok := h.handler.(PutHandler); ok {
+			hh.ServeHTTPPut(w, r)
+			return
+		}
+		notAllowed()
+	case http.MethodDelete:
+		if hh, ok := h.handler.(DeleteHandler); ok {
+			hh.ServeHTTPDelete(w, r)
+			return
+		}
+		notAllowed()
     // ...
     default:
-        // Fall back to default handler method.
+        // Fall back to default for any other method.
         h.h.ServeHTTP(w, r)
     }
 }
@@ -129,9 +140,9 @@ type CacheHandler struct {
     cache map[string][]byte
 }
 
-// newCacheHandler creates the cache server. It's simply needed to create
+// NewCacheHandler creates the cache server. It's simply needed to create
 // the map of string to []byte.
-func newCacheHandler() {
+func newCacheHandler() *CacheHandler {
     return &CacheHandler{
         cache: make(map[string][]byte),
     }

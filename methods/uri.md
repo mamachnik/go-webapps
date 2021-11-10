@@ -27,7 +27,7 @@ type ResourceID struct {
 type ResourceIDs []ResourceID
 
 // ParseResourceIDs parses a new ResourceID from a URI path.
-func ParseResourceIDs(r http.Request, prefix string) ResourceIDs {
+func ParseResourceIDs(r *http.Request, prefix string) ResourceIDs {
     trimmed := strings.TrimPrefix(r.URL.Path, prefix)
     parts := strings.Split(trimmed, "/")
     if len(parts) == 0 {

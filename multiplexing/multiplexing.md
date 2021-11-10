@@ -55,7 +55,7 @@ func main() {
 
     mux.Handle("/api/v1/cache/", httpx.MethodWrapper(cache.NewCacheHandler()))
     mux.Handle("/api/v1/json-cache/", httpx.MethodWrapper(cache.NewJSONCacheHandler()))
-    mux.Handle("/api/v1/users/", httpx.MethodWrapper(user.NewUsersHandler()))
+    mux.Handle("/api/v1/users/", httpx.MethodWrapper(users.NewHandler()))
 
     // ...
 

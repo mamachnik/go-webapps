@@ -27,7 +27,7 @@ import (
 type NestedMux struct {
     mu        sync.RWMutex
     prefix    string
-    resources map[string]http.Handler
+    resources map[string]*NestedMux
     handler   http.Handler
 }
 
@@ -65,7 +65,7 @@ func (mux *NestedMux) Handle(name string, h http.Handler) {
 
 // ServeHTTP implements http.Handler.
 func (mux *NestedMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-    ids := ParseResourceIDs(r.URL.Path, mux.prefix)
+    ids := ParseResourceIDs(r, mux.prefix)
 
     h := mux.retrieveHandler(ids)
     h.ServeHTTP(w, r)

@@ -15,16 +15,16 @@ import (
     "net/http"
 
     "./pkg/httpx"
-    "./pkg/user"
+    "./pkg/users"
 )
 
 func main() { 
     mux := http.NewServeMux()
     apimux := httpx.NewNestedMux("/api/v1")
 
-    apimux.Handle("users", httpx.MethodWrapper(user.NewUsersHandler()))
-    apimux.Handle("users/addresses", httpx.MethodWrapper(user.NewUsersAddressesHandler()))v
-    apimux.Handle("users/contracts", httpx.MethodWrapper(user.NewUsersContractsHandler()))
+    apimux.Handle("users", httpx.MethodWrapper(users.NewHandler()))
+    apimux.Handle("users/addresses", httpx.MethodWrapper(users.NewAddressesHandler()))v
+    apimux.Handle("users/contracts", httpx.MethodWrapper(users.NewContractsHandler()))
 
     // ...
 

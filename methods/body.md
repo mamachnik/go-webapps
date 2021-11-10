@@ -50,18 +50,19 @@ func ReadBody(r http.Request, v interface{}) error {
     case ContentTypeText:
         pv, ok := v.(*string) // Assume v is a string pointer.
         if !ok {
-            return fmt.Errorf("UnmarshalBody: v is not a string pointer")
+            return fmt.Errorf("ReadBody: v is not a string pointer")
         }
         *pv = string(body)
     case ContentTypeXML:
-        return xml.Unmarshal(r.Body, v)
+        return xml.Unmarshal(body, v)
     default:
         pbs, ok := v.(*[]byte) // Assume v is a byte slice pointer.
         if !ok {
-            return fmt.Errorf("UnmarshalBody: v is not a byte slice pointer")
+            return fmt.Errorf("ReadBody: v is not a byte slice pointer")
         }
         *pbs = body
     }
+    return nil
 }
 ```
 
@@ -87,8 +88,12 @@ func WriteBody(w http.ResponseWriter, contentType string, v interface{}) error {
         w.Header().Set(HeaderContentType, ContentTypeJSON)
         w.Write(body)
     case ContentTypeText:
-        w.Header().Set(HeaderContentType, ContentTypeText)
-        w.Write([]byte(v))
+		s, ok := v.(string)
+		if !ok {
+			return fmt.Errorf("WriteBody: v is not a string")
+		}
+		w.Header().Set(HeaderContentType, ContentTypeText)
+		w.Write([]byte(s))
     case ContentTypeXML:
         body, err := xml.Marshal(v)
         if err != nil {

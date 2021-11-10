@@ -26,36 +26,39 @@ type JSONDoc struct {
     Content json.RawMessage `json:"content"`
 }
 
-// JSONCacheServer provides a simple JSON in-memory cache server. Cache is 
+// JSONCacheHandler provides a simple JSON in-memory cache server. Cache is 
 // done via a map of string to JSONDoc. The JSONDoc contains the ID and a
 // raw content. The sync.RWMutex is used to ensure that the cache is
 // thread-safe.
-type JSONCacheServer struct {
+type JSONCacheHandler struct {
     mu    sync.RWMutex
     cache map[string]JSONDoc
 }
 
-// JSONnewCacheServer creates the cache server. It's simply needed to create
+// NewJSONCacheHandler creates the cache server. It's simply needed to create
 // the map of string to JSONDoc.
-func JSONnewCacheServer() {
-    return &JSONCacheServer{
+func NewJSONCacheHandler() {
+    return &JSONCacheHandler{
         cache: make(map[string]JSONDoc),
     }
 }
 
 // ServeHTTPGet retrieves a JSO document out of cache.
-func (s *JSONCacheServer) ServeHTTPGet(w http.ResponseWriter, r *http.Request) {
-    s.mu.RLock()
-    defer s.mu.RUnlock()
+func (h *JSONCacheHandler) ServeHTTPGet(w http.ResponseWriter, r *http.Request) {
+    h.mu.RLock()
+    defer h.mu.RUnlock()
 
     ids := httpx.ParseResourceIDs(r, "/api/v1")
     if ids == nil {
         http.Error(w, "resource and ID are missing", http.StatusInvalidRequest)
         return
     }
-    // Missing: Check of the resource name!
+    if ids[0].Name != "json-cache" {
+        http.Error(w, "resource is not json-cache", http.StatusBadRequest)
+        return
+    }
     id := ids[0].ID
-    doc, ok := s.cache[id]
+    doc, ok := h.cache[id]
     if !ok {
         http.Error(w, "JSON document not found", http.StatusNotFound)
         return
@@ -66,29 +69,32 @@ func (s *JSONCacheServer) ServeHTTPGet(w http.ResponseWriter, r *http.Request) {
     }
 }
 
-// ServeHTTPPost adds a JSON document to the cache.
-func (s *JSONnewCacheServer) ServeHTTPPost(w http.ResponseWriter, r *http.Request) {
-    s.mu.Lock()
-    defer s.mu.Unlock()
+// ServeHTTPPost adds a new JSON document to the cache.
+func (h *JSONnewCacheServer) ServeHTTPPost(w http.ResponseWriter, r *http.Request) {
+    h.mu.Lock()
+    defer h.mu.Unlock()
 
     ids := httpx.ParseResourceIDs(r, "/api/v1")
     if ids == nil {
         http.Error(w, "resource is missing", http.StatusInvalidRequest)
         return
     }
-    // Missing: Check of the resource name!
+    if ids[0].Name != "json-cache" {
+        http.Error(w, "resource is not json-cache", http.StatusBadRequest)
+        return
+    }
     var doc JSONDoc
     err := httpx.ReadBody(r, &doc)
     if err != nil {
         http.Error(w, err.Error(), http.StatusBadRequest)
         return
     }
-    _, ok := s.cache[doc.ID]
+    _, ok := h.cache[doc.ID]
     if ok {
         http.Error(w, "JSON document already exists", http.StatusConflict)
         return
     }
-    s.cache[doc.ID] = doc
+    h.cache[doc.ID] = doc
     w.WriteHeader(http.StatusCreated)
 }
 
@@ -96,7 +102,7 @@ func (s *JSONnewCacheServer) ServeHTTPPost(w http.ResponseWriter, r *http.Reques
 
 // main runs the cache server.
 func main() {
-    cs := httpx.NewMethodHandler(JSONnewCacheServer()) // Use the wrapper.
+    cs := httpx.NewMethodHandler(NewJSONCacheHandler()) // Use the wrapper.
     err := http.ListenAndServe(":8080", cs)
 
     if err != nil {

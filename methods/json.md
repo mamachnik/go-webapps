@@ -31,7 +31,7 @@ type Person struct {
     Age       int      `json:"age"`
     Cars      []string `json:"cars,omitempty"` // omitempty is used to omit the field if it is empty.
 
-    privataData string // privateData field is not exported.
+    privateData string // privateData field is not exported.
 }
 ```
 
@@ -78,7 +78,7 @@ if r.Header.Get("Content-Type") != "application/json" {
 
 // Unmarshal the JSON to the person struct.
 var person Person
-err := json.Decode(r.Body, &person)
+err := json.Unmarshal(r.Body, &person)
 if err != nil {
     http.Error(w, "Invalid request", http.StatusBadRequest)
     return
