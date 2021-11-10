@@ -11,4 +11,4 @@
 
 ---
 
-[   TOP   ](../README.md) | [   NEXT   ](experience.md)
+[TOP](../README.md) || [EXPERIENCE](experience.md)

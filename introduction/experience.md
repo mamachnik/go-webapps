@@ -12,4 +12,4 @@
 
 ---
 
-[   BACK   ](whoami.md) | [   TOP   ](../README.md) | [   NEXT   ](whygo.md)
+[WHO AM I](whoami.md) || [TOP](../README.md) || [WHY GO](whygo.md)

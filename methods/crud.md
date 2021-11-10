@@ -58,4 +58,4 @@
 
 ---
 
-[   PREV   ](methods.md) |  [   TOP   ](../README.md) | [   NEXT   ](uri.md)
+[METHODS](methods.md) ||  [TOP](../README.md) || [URI](uri.md)

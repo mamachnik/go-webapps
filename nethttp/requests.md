@@ -17,19 +17,19 @@
 * Some fields are simple data types, like `string` or `int`
 * Others are complex data types, like `url.URL`, `http.Header`, or `multipart.Form`
 
-### url.URL
+#### url.URL
 
 * The type `url.URL` represents a parsed URL
 * It contains information about the URL, such as the scheme, host, path, and so on
 * Functions and methods help to parse and create URLs
 
-### http.Header
+#### http.Header
 
 * The type `http.Header` represents an HTTP message header
 * It is a map of header field names to values
 * Output to an `io.Writer` as a series of HTTP header lines in the format "Header-Name: value\r\n"
 
-### multipart.Form
+#### multipart.Form
 
 * The type `multipart.Form` represents an HTTP request body which uses the `multipart/form-data` MIME format
 * It is a map of field names to list of values
@@ -86,4 +86,4 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 ---
 
-[   PREV   ](package.md) | [   TOP   ](../README.md) | [   NEXT   ](responses.md)
+[NET/HTTP](nethttp.md) || [TOP](../README.md) || [RESPONSES](responses.md)

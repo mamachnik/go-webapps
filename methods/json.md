@@ -90,4 +90,4 @@ if err != nil {
 
 ---
 
-[   PREV   ](uri.md) |  [   TOP   ](../README.md) |  [   NEXT   ](body.md)
+[URI](uri.md) ||  [TOP](../README.md) ||  [BODY](body.md)

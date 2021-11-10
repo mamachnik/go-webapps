@@ -18,18 +18,18 @@ import (
     "sync"
 )
 
-// CacheServer provides a simple in-memory cache server. Cache is done
+// CacheHandler provides a simple in-memory cache server. Cache is done
 // via a map of string to []byte. The sync.RWMutex is used to ensure that
 // the cache is thread-safe.
-type CacheServer struct {
+type CacheHandler struct {
     mux   sync.RWMutex
     cache map[string][]byte
 }
 
-// newCacheServer creates the cache server. It's simply needed to create
+// newCacheHandler creates the cache server. It's simply needed to create
 // the map of string to []byte.
-func newCacheServer() {
-    return &CacheServer{
+func newCacheHandler() {
+    return &CacheHandler{
         cache: make(map[string][]byte),
     }
 }
@@ -37,13 +37,13 @@ func newCacheServer() {
 // ServeHTTP implements the http.Handler interface. It only handles
 // the two HTTP methods: GET and POST. The work itself is done by
 // private helper methods.
-func (cs *CacheServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (h *CacheHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     // Map HTTP methods to individual methods.
     switch r.Method { 
     case http.HandleGet:
-        cs.handleGet(w, r)
+        h.handleGet(w, r)
     case http.HandlePost:
-        cs.handlePost(w, r)
+        h.handlePost(w, r)
     default:
         w.WriteHeader(http.StatusMethodNotAllowed)
     }
@@ -52,33 +52,34 @@ func (cs *CacheServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 // handleGet handles GET requests. If the path can be found in the cache,
 // its data is returned. Otherwise, the response is set to 404. Only
 // read lock is needed.
-func (cs *CacheServer) handleGet(w http.ResponseWriter, r *http.Request) {
-    cs.mux.RLock()
-    defer cs.mux.RUnlock()
+func (h *CacheHandler) handleGet(w http.ResponseWriter, r *http.Request) {
+    h.mux.RLock()
+    defer h.mux.RUnlock()
 
-    // Look if path is known.
-    if data, ok := cs.cache[r.URL.Path]; ok {
-        w.Write(data)
-        w.WriteHeader(http.StatusOK)
-    } else {
+    // Check if path is known.
+    data, ok := h.cache[r.URL.Path]
+    if !ok {
         w.WriteHeader(http.StatusNotFound)
+        return
     }
+    w.Write(data)
+    w.WriteHeader(http.StatusOK)
 }
 
 // handlePost handles POST requests. It does not matter if the path is known.
-func (cs *CacheServer) handlePost(w http.ResponseWriter, r *http.Request) {
-    cs.mux.Lock()
-    defer cs.mux.Unlock()
+func (h *CacheHandler) handlePost(w http.ResponseWriter, r *http.Request) {
+    h.mux.Lock()
+    defer h.mux.Unlock()
 
     // Simply write/update the variable.
-    cs.cache[r.URL.Path] = r.Body
+    h.cache[r.URL.Path] = r.Body
     w.WriteHeader(http.StatusOK)
 }
 
 // main runs the cache server.
 func main() {
-    cs := newCacheServer()
-    err := http.ListenAndServe(":8080", cs)
+    h := newCacheHandler()
+    err := http.ListenAndServe(":8080", h)
 
     if err != nil {
         log.Fatal(err)
@@ -88,4 +89,4 @@ func main() {
 
 ---
 
-[   PREV   ](responses.md) | [   TOP   ](../README.md)
+[RESPONSES](responses.md) || [TOP](../README.md)

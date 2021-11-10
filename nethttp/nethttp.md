@@ -50,14 +50,14 @@ import (
     "net/http"
 )
 
-type Hello struct{}
+type Hello structHandler{}
 
-func (h Hello) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (h *HelloHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     fmt.Fprint(w, "Hello!")
 }
 
 func main() {
-    err := http.ListenAndServe("localhost:8080", Hello{})
+    err := http.ListenAndServe("localhost:8080", HelloHandler{})
 
     log.Fatal(err)
 }
@@ -65,4 +65,4 @@ func main() {
 
 ---
 
-[   TOP   ](../README.md) | [   NEXT   ](requests.md)
+[TOP](../README.md) || [REQUESTS](requests.md)

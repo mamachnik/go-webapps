@@ -55,4 +55,4 @@ func NewResourceIDs(r http.Request, prefix string) ResourceIDs {
 
 ---
 
-[   PREV   ](crud.md) |  [   TOP   ](../README.md) | [   NEXT   ](json.md)
+[CRUD](crud.md) ||  [TOP](../README.md) || [JSON](json.md)

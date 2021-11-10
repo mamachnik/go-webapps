@@ -4,7 +4,7 @@
 
 1. [Introduction](introduction/whoami.md)
 2. Simple APIs with `net/http`
-	* [The `net/http` package](nethttp/package.md)
+	* [The `net/http` package](nethttp/nethttp.md)
 	* [Requests](nethttp/requests.md)
 	* [Response](nethttp/response.md)
 	* [The building blocks together](nethttp/buildingblocks.md)
@@ -16,7 +16,7 @@
 	* [Body handling with the httpx package](methods/body.md)
 	* [The building blocks together](methods/buildingblocks.md)
 4. Multiplexing
-	* Multiple paths, multiple handlers
+	* [Distribute paths to handlers](multiplexing/multiplexing.md)
 	* Deep paths and IDs
 5. Interfaces for authentication, authorisation and logs
 	* Nesting handlers
