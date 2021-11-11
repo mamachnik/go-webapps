@@ -8,8 +8,8 @@
 * Go does not follow a clear paradigm
 * Go provides no esoteric features
 * Go provides nothing really new
-* Go is not perfect
 * Go contains stumbling blocks
+* Go is not perfect
 
 ### But
 
@@ -30,4 +30,4 @@
 
 ---
 
-[EXPERIENCE](experience.md) || [TOP](../README.md)
+[<< EXPERIENCE WITH GO](experience.md) || [TABLE OF CONTENTS](../README.md)

@@ -2,7 +2,10 @@
 
 ## Table of Contents
 
-1. [Introduction](introduction/whoami.md)
+1. Introduction
+	* [Who am I](introduction/whoami.md)
+	* [Experience with Go](introduction/experience.md)
+	* [Why Go](introduction/whygo.md)
 2. Simple APIs with `net/http`
 	* [The `net/http` package](nethttp/nethttp.md)
 	* [Requests](nethttp/requests.md)

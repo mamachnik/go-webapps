@@ -1,8 +1,11 @@
 *Once Web Application with Everything in Go*
 
-## Go Experience
+## Experience with Go
 
-* One book, diverse articles, a column, and several talks about Go since 2010
+* Using Go since 2010
+* Several articles about it in different IT magazines
+* Talks about Go itself as well as projects realized with it
+* The book [Systemprogrammierung in Google Go](https://www.amazon.de/Systemprogrammierung-Google-Grundlagen-Skalierbarkeit-Performanz/dp/3898647129)
 * Professional usage since 2011
     * Cloud Provisioning
     * Logistic Application based on Microservices
@@ -12,4 +15,4 @@
 
 ---
 
-[WHO AM I](whoami.md) || [TOP](../README.md) || [WHY GO](whygo.md)
+[<< WHO AM I](whoami.md) || [TABLE OF CONTENTS](../README.md) || [WHY GO >>](whygo.md)
