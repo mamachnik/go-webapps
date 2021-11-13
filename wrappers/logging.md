@@ -17,7 +17,6 @@
 package httpx
 
 import (
-    "log"
     "net/http"
 )
 
@@ -26,7 +25,7 @@ type Logger interface {
     Printf(format string, v ...interface{})
 }
 
-// LoggingHandler wraps handlers an logs the requests to them.
+// LoggingHandler wraps handlers and logs the requests to them.
 type LoggingHandler struct {
     logger  Logger
     handler http.Handler
