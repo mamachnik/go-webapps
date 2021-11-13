@@ -97,4 +97,4 @@ func (mux *NestedMux) retrieveHandler(ids ResourceIDs) http.Handler {
 
 ---
 
-[MULTIPLEXING](multiplexing.md) ||  [TOP](../README.md) || [BUILDING BLOCKS TOGETHER](buildingblocks.md)
+[<< MULTIPLEXING](multiplexing.md) ||  [TABLE OF CONTENTS](../README.md) || [BUILDING BLOCKS TOGETHER >>](buildingblocks.md)

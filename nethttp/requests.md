@@ -86,4 +86,4 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 ---
 
-[NET/HTTP](nethttp.md) || [TOP](../README.md) || [RESPONSES](responses.md)
+[<< NET/HTTP](nethttp.md) || [TABLE OF CONTENTS](../README.md) || [RESPONSES >>](responses.md)

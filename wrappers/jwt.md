@@ -184,4 +184,4 @@ func main() {
 
 ---
 
-[LOGGINIG](logging.md) || [TOP](../README.md)
+[<< LOGGINIG](logging.md) || [TABLE OF CONTENTS](../README.md)

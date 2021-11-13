@@ -58,4 +58,4 @@
 
 ---
 
-[METHODS](methods.md) ||  [TOP](../README.md) || [URI](uri.md)
+[<< METHODS](methods.md) || [TABLE OF CONTENTS](../README.md) || [URI >>](uri.md)

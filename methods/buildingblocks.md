@@ -113,4 +113,4 @@ func main() {
 
 ---
 
-[JSON](json.md) || [TOP](../README.md)
+[<< JSON](json.md) || [TABLE OF CONTENTS](../README.md)

@@ -38,4 +38,4 @@ func main() {
 
 ---
 
-[NESTING](nesting.md) || [TOP](../README.md)
+[<< NESTING](nesting.md) || [TABLE OF CONTENTS](../README.md)

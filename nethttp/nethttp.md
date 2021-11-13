@@ -65,4 +65,4 @@ func main() {
 
 ---
 
-[TOP](../README.md) || [REQUESTS](requests.md)
+[TABLE OF CONTENTS](../README.md) || [REQUESTS >>](requests.md)

@@ -66,4 +66,4 @@ func main() {
 
 ---
 
-[TOP](../README.md) || [NESTING](nesting.md)
+[TABLE OF CONTENTS](../README.md) || [NESTING >>](nesting.md)

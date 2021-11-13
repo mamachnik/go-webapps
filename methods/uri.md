@@ -55,4 +55,4 @@ func ParseResourceIDs(r *http.Request, prefix string) ResourceIDs {
 
 ---
 
-[CRUD](crud.md) ||  [TOP](../README.md) || [JSON](json.md)
+[<< CRUD](crud.md) || [TABLE OF CONTENTS](../README.md) || [JSON >>](json.md)

@@ -90,4 +90,4 @@ if err != nil {
 
 ---
 
-[URI](uri.md) ||  [TOP](../README.md) ||  [BODY](body.md)
+[<< URI](uri.md) || [TABLE OF CONTENTS](../README.md) || [BODY >>](body.md)

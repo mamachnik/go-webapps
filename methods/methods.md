@@ -180,4 +180,4 @@ func main() {
 
 ---
 
-[TOP](../README.md) || [CRUD](crud.md)
+[TABLE OF CONTENTS](../README.md) || [CRUD >>](crud.md)

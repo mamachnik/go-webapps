@@ -115,4 +115,4 @@ func WriteBody(w http.ResponseWriter, contentType string, v interface{}) error {
 
 ---
 
-[JSON](json.md) || [TOP](../README.md) || [BUILDING BLOCKS TOGETHER](buildingblocks.md)
+[<< JSON](json.md) || [TABLE OF Contents](../README.md) || [BUILDING BLOCKS TOGETHER >>](buildingblocks.md)

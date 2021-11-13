@@ -21,14 +21,19 @@ import (
     "net/http"
 )
 
+// Logger defines an interface for many different loggers.
+type Logger interface {
+    Printf(format string, v ...interface{})
+}
+
 // LoggingHandler wraps handlers an logs the requests to them.
 type LoggingHandler struct {
-    logger  *log.Logger
+    logger  Logger
     handler http.Handler
 }
 
 // NewLoggingHandler creates a new logging handler with the given logger and handler.
-func NewLoggingHandler(logger *log.Logger, handler http.Handler) *LoggingHandler {
+func NewLoggingHandler(logger Logger, handler http.Handler) *LoggingHandler {
     return &LoggingHandler{
         logger:  logger,
         handler: handler,
@@ -77,4 +82,4 @@ func main() {
 
 ---
 
-[TOP](../README.md) || [JWT](jwt.md)
+[TABLE OF CONTENTS](../README.md) || [JWT >>](jwt.md)

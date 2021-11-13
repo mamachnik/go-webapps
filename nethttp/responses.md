@@ -38,4 +38,4 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 ---
 
-[REQUESTS](requests.md) || [TOP](../README.md) || [BUILDING BLOCKS TOGETHER](buildingblocks.md)
+[<< REQUESTS](requests.md) || [TABLE OF CONTENTS](../README.md) || [BUILDING BLOCKS TOGETHER >>](buildingblocks.md)

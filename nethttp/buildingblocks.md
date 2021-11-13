@@ -89,4 +89,4 @@ func main() {
 
 ---
 
-[RESPONSES](responses.md) || [TOP](../README.md)
+[<< RESPONSES](responses.md) || [TABLE OF CONTENTS](../README.md)
