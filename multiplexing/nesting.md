@@ -14,84 +14,42 @@
 ```go
 // file: nesting.go
 
-package httpx
-
-import (
-    "net/http"
-    "strings"
-    "sync"
-)
-
 // NestedMux allows to nest handler following the pattern
 // {prefix}/{resource}/{id}/{subresource}/{subresource-id}/...
 type NestedMux struct {
-    mu        sync.RWMutex
-    prefix    string
-    resources map[string]*NestedMux
-    handler   http.Handler
+	mu       sync.RWMutex
+	prefix   string
+	handlers map[string]http.Handler
 }
 
-// NewNestedMux creates an empty nested multiplexer.
 func NewNestedMux(prefix string) *NestedMux {
-    return &NestedMux{
-        prefix:    prefix,
-        resources: make(map[string]*NestedMux),
-    }
+	return &NestedMux{
+		prefix:   prefix,
+		handlers: make(map[string]http.Handler),
+	}
 }
 
-// Handle registers the handler for the given resource name. Nested names are separated by a slash.
-func (mux *NestedMux) Handle(name string, h http.Handler) {
-    mux.mu.Lock()
-    defer mux.mu.Unlock()
+func (mux *NestedMux) Handle(path string, h http.Handler) {
+	mux.mu.Lock()
+	defer mux.mu.Unlock()
 
-    parts := strings.Split(name, "/")
-    switch len(parts) {
-    case 0:
-        panic("empty resource name")
-    case 1:
-        submux, exists := mux.resources[parts[0]]
-        if exists {
-            panic("resource already exists")
-        }
-        submux.handler = h
-    default:
-        submux, exist := mux.resources[parts[0]]
-        if !exists {
-            panic("resource does not exist")
-        }
-        submux.Handle(strings.Join(parts[1:], "/"), h)
-    }
+	mux.handlers[path] = h
 }
 
 // ServeHTTP implements http.Handler.
 func (mux *NestedMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-    ids := ParseResourceIDs(r, mux.prefix)
+	mux.mu.RLock()
+	defer mux.mu.RUnlock()
 
-    h := mux.retrieveHandler(ids)
-    h.ServeHTTP(w, r)
-}
+	ress := PathToResources(r, mux.prefix)
+	path := ress.path()
+	h, exists := mux.handlers[path]
 
-// retrieveHandler retrieves the handler based on the resource IDs.
-func (mux *NestedMux) retrieveHandler(ids ResourceIDs) http.Handler {
-    mux.mu.RLock()
-    defer mux.mu.RUnlock()
+	if !exists {
+		h = http.NotFoundHandler()
+	}
 
-    switch len(ids) {
-    case 0:
-        return mux.handler
-    case 1:
-        submux, exists := mux.resources[ids[0].ID]
-        if !exists {
-            return http.NotFoundHandler()
-        }
-        return submux.handler
-    default:
-        submux, exists := mux.resources[ids[0].ID]
-        if !exists {
-            return http.NotFoundHandler()
-        }
-        return submux.retrieveHandler(ids[1:])
-    }
+	h.ServeHTTP(w, r)
 }
 ```
 
