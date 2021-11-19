@@ -8,8 +8,6 @@
 * Shall be flexible enough to handle any content type
 
 ```go
-// file: body.go
-
 package httpx
 
 import (
@@ -72,8 +70,6 @@ func ReadBody(r http.Request, v interface{}) error {
 * Send it to the client via response writer
 
 ```go
-// file: body.go
-
 // WriteBody writes the given value to the response writer. It analyzes the content type and uses the
 // the appropriate encoding. Here it handles plain text, JSON, and XML. All other content types are
 // written directly as byte slice.

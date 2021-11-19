@@ -90,4 +90,4 @@ if err != nil {
 
 ---
 
-[<< URI](uri.md) || [TABLE OF CONTENTS](../README.md) || [BODY >>](body.md)
+[<< PATH](path.md) || [TABLE OF CONTENTS](../README.md) || [BODY >>](body.md)

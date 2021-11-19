@@ -17,8 +17,6 @@
 ### JWTHandler for the `httpx` package
 
 ```go
-// file: jwt.go
-
 package httpx
 
 import (

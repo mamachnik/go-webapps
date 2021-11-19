@@ -31,31 +31,7 @@
     * Path: The path of the resource
     * Query: The query string of the resource
 * The path is used to identify the resource
-* It contains the resource's name and the resource's ID
-* Names and IDs can be nested
-* The path also may have a prefix like `/api/v1`
-* The resource's name is always written in lowercase and plural
-
-### Example requests
-
-    // Create a new user.
-    POST /api/v1/users
-
-    // Read a user.
-    GET /api/v1/users/1
-
-    // Read all addresses of a user.
-    GET /api/v1/users/1/addresses
-
-    // Read one address of a user.
-    GET /api/v1/users/1/addresses/5
-
-    // Update a user.
-    PUT /api/v1/users/1
-
-    // Delete a resource.
-    DELETE /api/v1/users/1
 
 ---
 
-[<< METHODS](methods.md) || [TABLE OF CONTENTS](../README.md) || [URI >>](uri.md)
+[<< METHODS](methods.md) || [TABLE OF CONTENTS](../README.md) || [PATH >>](path.md)

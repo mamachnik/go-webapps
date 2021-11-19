@@ -26,11 +26,9 @@ default:
 ### But why repeat this for every handler?
 
 * Let's create our own helper package and use the power of interfaces to handle the methods
-* So we first create our HTTP helper package `pkg/httpx`
+* So we first create our HTTP helper package, named e.g. `pkg/httpx`
 
 ```go
-// File: httpx.go
-
 // Package httpx contains helper functions for the daily work with HTTP.
 package httpx
 ``` 
@@ -41,8 +39,6 @@ package httpx
 * Its `ServeHTTP` distributes the requests to the handler methods based on a type switch
 
 ```go
-// File: methods.go
-
 package httpx
 
 import (

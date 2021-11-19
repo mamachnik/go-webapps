@@ -12,8 +12,6 @@
 ### Add a logging handler
 
 ```go
-// file: logging.go
-
 package httpx
 
 import (

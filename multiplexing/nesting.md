@@ -4,71 +4,18 @@
 
 ### Requirements in RESTful APIs
 
-* Requests like `GET /api/v1/users/1/addresses/5` show the usage of resources and subresources
-* Pattern is `{prefix}/{resource}/{id}/{subresource}/{subresource-id}/...`
+* Requests like `GET /api/v1/users/1/addresses/5` show the usage of resources and subresources together with their individual identifiers
+* A typical pattern is `{prefix}/{resource}/{id}/{subresource}/{subresource-id}/...`
 * The type `http.ServeMux` does not handle a direct matching as names as the part of the path are changing
-* An own multiplexer is needed to handle the requests
+* So own path helpers and a multiplexer are needed
 
-### Extend the `httpx` package
+### Multiplexing of requests path to handlers based on resource names
 
-* Separation of URI path into prefix, resources, and IDs
-
-```go
-// file: uri.go
-
-// Resource identifies a resource in a URI path by name and ID.
-type Resource struct {
-	Name string
-	ID   string
-}
-
-// Resources is a number or resources in a URI path.
-type Resources []Resource
-
-// path returns the number of resource names concatenated with slashes
-// like they are stored in the nested multiplexer.
-func (ress Resources) path() string {
-	names := make([]string, len(ress))
-	for i, res := range ress {
-		names[i] = res.Name
-	}
-	return strings.Join(names, "/")
-}
-
-// PathToResources parses a new Resource from a URI path.
-func PathToResources(r *http.Request, prefix string) Resources {
-	// Remove prefix with and without trailing slash.
-	prefix = strings.TrimSuffix(prefix, "/")
-	trimmed := strings.TrimPrefix(r.URL.Path, prefix)
-	trimmed = strings.TrimPrefix(trimmed, "/")
-	// Now split the path.
-	parts := strings.Split(trimmed, "/")
-	if len(parts) == 0 {
-		return nil
-	}
-	var ress Resources
-	var name string
-	for i, part := range parts {
-		switch {
-		case i%2 == 0:
-			name = part
-		case i%2 == 1:
-			ress = append(ress, Resource{name, part})
-			name = ""
-		}
-	}
-	if name != "" {
-		ress = append(ress, Resource{name, ""})
-	}
-	return ress
-}
-```
-
-* Multiplexing of requests path to handlers based on resource names
+* `NestedMux` is a multiplexer of handlers based on resource names
+* A path is a number of resource names separated by slashes
+* E.g. `customers`, `customers/addresses`, and `customers/contracts` are all valid paths
 
 ```go
-// file: nesting.go
-
 // NestedMux allows to nest handler following the pattern
 // {prefix}/{resource}/{id}/{subresource}/{subresource-id}/...
 type NestedMux struct {
