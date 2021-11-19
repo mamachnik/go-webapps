@@ -1,11 +1,11 @@
 *Once Web Application with Everything in Go*
 
-## Pathes in RESTful APIs
+## Paths in RESTful APIs
 
-* Pathes of RESTful APIs follow a common pattern
-* Pathes can contain prefixes like `/api/` or `/api/v1/`
+* Paths of RESTful APIs follow a common pattern
+* Paths can contain prefixes like `/api/` or `/api/v1/`
 * The important part is a set of pairs of resource names and identifiers
-* Deeper pathes mean nesting of resources and subresources
+* Deeper paths mean nesting of resources and subresources
 * Examples are
 
     // Create a new customer.
@@ -26,7 +26,7 @@
     // Delete a customer.
     DELETE /api/v1/customers/1
 
-* The pathes are unique identifiers of domain objects
+* The paths are unique identifiers of domain objects
 * The pattern is `{prefix}/{resource}/{id}/{subresource}/{subresource-id}/...`
 * The resource's name is always written in lowercase and plural
 
