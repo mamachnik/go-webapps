@@ -31,6 +31,7 @@
     * Path: The path of the resource
     * Query: The query string of the resource
 * The path is used to identify the resource
+* Arguments inside the query string are used to narrow or order requests of resource lists
 
 ---
 
