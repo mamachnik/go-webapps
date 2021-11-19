@@ -1,6 +1,6 @@
 *Once Web Application with Everything in Go*
 
-## RESTul APIs and CRUD
+## RESTful APIs and CRUD
 
 ### CRUD
 
