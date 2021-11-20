@@ -1,4 +1,4 @@
-*Once Web Application with Everything in Go*
+*RESTful APIs with Go*
 
 ## Distribute paths to handlers
 

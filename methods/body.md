@@ -1,4 +1,4 @@
-*Once Web Application with Everything in Go*
+*RESTful APIs with Go*
 
 ## Body handling with the httpx package
 
